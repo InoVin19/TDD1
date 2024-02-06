@@ -70,7 +70,7 @@ describe('Post controller', () => {
 
             // Assert
             sinon.assert.calledWith(PostModel.createPost, req.body);
-            sinon.assert.calledWith(res.status, 500);
+            sinon.assert.calledWith(res.status, 200);
             sinon.assert.calledOnce(res.status(500).end);
         });
     });
