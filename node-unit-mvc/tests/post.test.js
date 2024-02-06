@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const PostModel = require('../models/post.model');
 const PostController = require('../controllers/post.controller');
+const mongoose = require('mongoose');
 
 describe('Post controller', () => {
     // Setup the responses
@@ -82,4 +83,8 @@ describe('Post controller', () => {
     describe('findPost', () => {
 
     })
+
+    afterAll(() => {
+        mongoose.connection.close();
+      });
 });
