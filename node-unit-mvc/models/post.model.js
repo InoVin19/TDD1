@@ -23,3 +23,9 @@ exports.updatePost = (id, obj, next) => {
         next(err, result);
     });
 }
+
+exports.findPost = (id, next) => {
+    Post.findById(id, function(err, result) {
+        next(err, result);
+    });
+}
