@@ -7,6 +7,8 @@ const options = { useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false };
 
-mongoose.connect(databaseURL, options);
+//mongoose.connect(databaseURL, options);
+
+mongoose.connect(databaseURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 module.exports = mongoose;
