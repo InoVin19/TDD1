@@ -71,13 +71,43 @@ describe('Post controller', () => {
 
             // Assert
             sinon.assert.calledWith(PostModel.createPost, req.body);
-            sinon.assert.calledWith(res.status, 200);
+            sinon.assert.calledWith(res.status, 500);
             sinon.assert.calledOnce(res.status(500).end);
         });
     });
 
     describe('update', () => {
 
+        beforeEach(() => {
+            // before every test case setup first
+            res = {
+                json: sinon.spy(),
+                status: sinon.stub().returns({ end: sinon.spy() })
+            };
+
+            req = {
+                body: { title: 'Updated Title', content: 'Updated Content' },
+                params: { id: '123' },
+            };
+        });
+
+        afterEach(() => {
+            // executed after the test case
+            createPostStub.restore();
+        });
+
+        it('should return status 500 on server error', () => {
+            // Arrange
+            createPostStub = sinon.stub(PostModel, 'updatePost').yields(error);
+
+            // Act
+            PostController.update(req, res);
+
+            // Assert
+            sinon.assert.calledWith(PostModel.updatePost, req.params.id, req.body);
+            sinon.assert.calledWith(res.status, 204);
+            sinon.assert.calledOnce(res.status(500).end);
+        });
     });
 
     describe('findPost', () => {
